@@ -6,12 +6,9 @@ import sys
 def main(argv):
   api = AsahiNewsAPI('869388c0968ae503614699f99e09d960f9ad3e12')
   result = {}
-  words = ''
-  try:
-    words = sys.stdin.readline()
-  except EOFError:
-    pass
-  for keyword in words.strip().split(','):
+  words = argv[0].strip().split(',')
+  
+  for keyword in words:
     response = api.search(query='Body:{}'.format(keyword))
     if 'response' in response and 'result' in response['response']:
       result[keyword] = int(response['response']['result']['numFound'])
