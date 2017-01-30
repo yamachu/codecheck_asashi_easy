@@ -4,12 +4,11 @@ import json
 import sys
 
 def main(argv):
-  api = AsahiNewsAPI('869388c0968ae503614699f99e09d960f9ad3e12')
+  api = AsahiNewsAPI("869388c0968ae503614699f99e09d960f9ad3e12")
   result = {}
-  words = ' '.join(argv).strip().split(',')
-  
-  for keyword in words:
-    response = api.search(query='Body:{}'.format(keyword))
+    
+  for keyword in argv:
+    response = api.search(query='Body:{}'.format(keyword.strip()))
     if 'response' in response and 'result' in response['response']:
       result[keyword] = int(response['response']['result']['numFound'])
 
@@ -18,6 +17,6 @@ def main(argv):
     "name": sorted_result[0][0],
     "count": sorted_result[0][1]
   }
-  output = json.dumps(dict_result, separators=(', ',':'), ensure_ascii=False)
+  output = json.dumps(dict_result, separators=(',',':'), ensure_ascii=False)
   print(output)
 

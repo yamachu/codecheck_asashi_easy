@@ -11,12 +11,11 @@ class AsahiNewsAPI:
         response = requests.get(
             self.BASE_URL,
             params={
-                'q': query,
+                'q': query.encode('utf-8'),
                 'sort': sort,
                 'start': start,
                 'rows': rows,
                 'wt': wt,
                 'ackey': self.access_key
             })
-        
         return response.json()
