@@ -2,6 +2,7 @@
 from .AsahiNewsArchives.api import AsahiNewsAPI
 import json
 import sys
+import collections
 
 def main(argv):
   api = AsahiNewsAPI("869388c0968ae503614699f99e09d960f9ad3e12")
@@ -13,10 +14,12 @@ def main(argv):
       result[keyword] = int(response['response']['result']['numFound'])
 
   sorted_result = sorted(result.items(), key=lambda x:-x[1])
-  dict_result = {
-    "name": sorted_result[0][0],
-    "count": sorted_result[0][1]
-  }
-  output = json.dumps(dict_result, separators=(',',':'), ensure_ascii=False)
+  json_body = collections.OrderedDict([
+    ('name', (sorted_result[0])[0]),
+    ('count', (sorted_result[0])[1]) 
+  ])
+  
+  output = json.dumps(json_body, separators=(',',':'), ensure_ascii=False)
   print(output)
+  
 
