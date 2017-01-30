@@ -6,7 +6,7 @@ import sys
 def main(argv):
   api = AsahiNewsAPI('869388c0968ae503614699f99e09d960f9ad3e12')
   result = {}
-  words = argv[0].strip().split(',')
+  words = ' '.join(argv).strip().split(',')
   
   for keyword in words:
     response = api.search(query='Body:{}'.format(keyword))
