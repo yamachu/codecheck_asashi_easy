@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
 from .AsahiNewsArchives.api import AsahiNewsAPI
 import json
 
 def main(argv):
   api = AsahiNewsAPI('869388c0968ae503614699f99e09d960f9ad3e12')
   result = {}
-  for keyword in input().strip().split(','):
+  words = input()
+  for keyword in words.strip().split(','):
     response = api.search(query='Body:{}'.format(keyword))
     if 'response' in response and 'result' in response['response']:
       result[keyword] = int(response['response']['result']['numFound'])
